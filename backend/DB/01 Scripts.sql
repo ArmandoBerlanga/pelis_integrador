@@ -13,7 +13,7 @@
         NombreDirector VARCHAR(100) NOT NULL
     )
 
-    CREATE TABLE PeliculaID(
+    CREATE TABLE Pelicula(
         PeliculaID INT PRIMARY KEY IDENTITY(1,1),
         NombrePelicula VARCHAR(100) NOT NULL,
         Duracion DECIMAL(5,2) NOT NULL DEFAULT 0.0,
@@ -30,4 +30,9 @@
         ProtagonistaID INT FOREIGN KEY REFERENCES Protagonista(ProtagonistaID)
 
         CONSTRAINT PK_PeliProta PRIMARY KEY (PeliculaID, ProtagonistaID)
+    )
+
+    CREATE TABLE PosterPelicula(
+        PeliculaID INT NOT NULL FOREIGN KEY REFERENCES Pelicula(PeliculaID),
+        Poster VARCHAR(MAX)
     )

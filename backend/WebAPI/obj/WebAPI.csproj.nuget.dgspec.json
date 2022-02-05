@@ -14,13 +14,15 @@
         "outputPath": "/Users/armandoberlanga/VSC-workspace/Escuela/pelis_integrador/backend/WebAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/armandoberlanga/.nuget/NuGet/NuGet.Config"
+          "/Users/armandoberlanga/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "/Users/armandoberlanga/VSC-workspace/HACSYS/plantilla_base/backend/DLLs": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://hacsysnuget.azurewebsites.net:443/nuget": {}
         },
         "frameworks": {
           "net5.0": {

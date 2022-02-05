@@ -3,7 +3,7 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="WebAPI/Models/ActividadDiagnosticoContext.cs">
     <Files>
       <File FileName="WebAPI/Startup.cs" Line="60" Column="48" />
-      <File FileName="WebAPI/Models/Director.cs" Line="1" Column="1" />
+      <File FileName="WebAPI/Models/Director.cs" />
       <File FileName="WebAPI/Models/ActividadDiagnosticoContext.cs" Line="20" Column="51" />
     </Files>
     <Pads>
