@@ -11,11 +11,10 @@
 
                 <q-btn round color="secondary" icon="add" />
 
-                <q-input color="primary" bg-color="white" filled v-model="text" label="Busca tu pelicula fav...">
-                    <template v-slot:prepend>
-                        <q-icon name="search" />
-                    </template>
-                </q-input>
+                <div class="search-bar">
+                    <q-icon name="search" class="search-icon" />
+                    <input type="text" v-model="state.search" placeholder="Busca tu peli fav ....">
+                </div>
 
             </div>
         </q-toolbar>
@@ -29,13 +28,20 @@
 
 <script>
 import {
-    defineComponent
+    defineComponent, reactive
 } from 'vue'
 
 export default defineComponent({
     name: 'MainLayout',
     setup() {
-        return {}
+
+        const state = reactive({
+            search: ''
+        })
+
+        return {
+            state
+        }
     }
 })
 </script>
@@ -62,7 +68,7 @@ export default defineComponent({
                 width: 22px;
                 height: 22px;
                 position: absolute;
-                top: 0.55rem;
+                top: 0.21rem;
                 left: 7.85rem;
             }
         }
@@ -72,6 +78,33 @@ export default defineComponent({
             align-items: center;
             gap: 0.7rem;
             padding: 0.5rem 0;
+            
+
+            .search-bar{
+                background-color: white;
+                border-radius: 5px;
+                color: grey;
+                display: flex;
+                align-items: center;
+
+                .search-icon{
+                    font-size: 1.5rem;
+                    padding: 0.5rem;
+                }
+
+                input{
+                    border: none;
+                    padding: 0.7rem 0;
+                    font-size: 1rem;
+                    width: 20rem;
+                    border-radius: 5px;
+
+                    &:focus{
+                        outline: none;
+                    }
+                }
+            }
+
         }
     }
 }

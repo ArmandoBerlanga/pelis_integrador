@@ -1,8 +1,10 @@
 <template>
 <div id="pelicula">
     <div class="poster">
-        <img v-bind:src="poster" :alt="'poster de la pelicula ' + title">
+        <img :src="poster != '' ? poster: require('assets/nodisponible.jpg')" :alt="'poster de la pelicula ' + title">
+
         <p class="categoria">{{ categorie }}</p>
+        <p class="director">Director@: {{ director == '' ? 'no asignado' : director }}</p>
     </div>
 
     <div class="info">
@@ -28,9 +30,13 @@ export default {
             type: String,
             default: ''
         },
+        director: {
+            type: String,
+            default: 'no registrado'
+        },
         poster: {
             type: String,
-            default: ''
+            default: require('assets/nodisponible.jpg')
         }
     },
     setup() {
@@ -41,12 +47,10 @@ export default {
             return `${horas}h ${minutos}m`;
         }
 
-
         return {
             formatterDuration
         }
     }
-
 
 }
 </script>
@@ -65,16 +69,17 @@ export default {
     transition: transform 0.45s ease;
     padding: 5% 0;
 
-    .poster{
+    .poster {
         position: relative;
-        img{
+
+        img {
             width: 13rem;
-            height: auto;
+            height: 20rem;
             object-fit: cover;
             border-radius: 5px;
         }
 
-        .categoria{
+        .categoria {
             position: absolute;
             top: 0;
             left: 0;
@@ -85,26 +90,43 @@ export default {
             border-radius: 5px 0 5px 0;
             font-size: 0.8rem;
         }
+
+        .director {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-weight: bold;
+            padding: 0.5rem;
+            border-radius: 0 0 5px 5px;
+            font-size: 0.8rem;
+
+        }
     }
 
-    .info{
+    .info {
         text-align: center;
         font-size: 1.2rem;
-        .title{
+
+        .title {
+            margin-top: 0.35rem;
             padding: 0 2.5rem;
             font-weight: bold;
         }
-        .duration{
+
+        .duration {
             color: grey;
             font-style: italic;
         }
     }
 
-    &:hover{
+    &:hover {
         transform: scale(1.05);
         cursor: pointer;
         border-radius: 5px;
-        background-color: rgba(128, 128, 128, 0.075);
+        background-color: rgba(128, 128, 128, 0.137);
     }
 }
 </style>
