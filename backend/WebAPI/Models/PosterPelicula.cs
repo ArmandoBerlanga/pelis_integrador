@@ -5,10 +5,9 @@ using System.Collections.Generic;
 
 namespace WebAPI.Models
 {
-    public partial class PeliculaProtagonistum
+    public partial class PosterPelicula
     {
         public int PeliculaId { get; set; }
-        public int ProtagonistaId { get; set; }
-        
+        public string Poster { get; set; }
     }
 }
