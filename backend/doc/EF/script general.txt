@@ -1,3 +1,0 @@
-dotnet ef dbcontext Scaffold "Server=localhost,1433;Database=ActividadDiagnostico;User=sa;Password=Pass”123* Microsoft.EntityFrameworkCore.SqlServer -o Models -f
-
-dotnet aspnet-codegenerator controller -name CategoriaController -async -api -m Categorium -dc ActividadDiagnosticoContext -outDir Controllers -f 
