@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace WebAPI.Models
 {
-    public partial class Categorium
+    public partial class Categoria
     {
         public int CategoriaId { get; set; }
         public string DescripcionCorta { get; set; }

@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
 
         // GET: api/Categoria
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Categorium>>> GetCategoria()
+        public async Task<ActionResult<IEnumerable<Categoria>>> GetCategoria()
         {
             return await _context.Categoria.ToListAsync();
         }

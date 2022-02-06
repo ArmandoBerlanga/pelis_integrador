@@ -21,9 +21,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PeliculaCompleta>>> GetCategoria()
+        public async Task<ActionResult<IEnumerable<Pelicula>>> GetCategoria()
         {
-            return await _context.ListaPeliculas.FromSqlRaw("EXEC dbo.CargarListaPeliculas").ToListAsync();
+            return await _context.ListaPelicula.FromSqlRaw("EXEC dbo.CargarListaPeliculas").ToListAsync();
         }
 
     }

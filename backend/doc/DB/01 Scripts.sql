@@ -18,6 +18,7 @@
         NombrePelicula VARCHAR(100) NOT NULL,
         Duracion DECIMAL(5,2) NOT NULL DEFAULT 0.0,
         CategoriaID INT FOREIGN KEY REFERENCES Categoria(CategoriaID),
+        DirectorID INT FOREIGN KEY REFERENCES Director(DirectorID)
     )
 
     CREATE TABLE Protagonista(
@@ -36,3 +37,22 @@
         PeliculaID INT NOT NULL FOREIGN KEY REFERENCES Pelicula(PeliculaID),
         Poster VARCHAR(MAX)
     )
+
+-- 3) SPS
+
+    -- EXEC dbo.CargarListaPeliculas 
+    ALTER PROCEDURE dbo.CargarListaPeliculas 
+    AS 
+    BEGIN
+
+        SELECT P.*, C.DescripcionCorta, C.DescripcionLarga, D.NombreDirector, PP.Poster
+        FROM Pelicula P 
+            INNER JOIN Categoria C ON P.CategoriaID = C.CategoriaID
+            INNER JOIN Director D ON D.DirectorID = P.DirectorID
+            LEFT JOIN PosterPelicula PP ON P.PeliculaID = PP.PeliculaID 
+
+    END
+
+    --
+    --
+    --

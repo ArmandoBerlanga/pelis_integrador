@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace WebAPI.Models
 {
-    public partial class Protagonistum
+    public partial class Protagonista
     {
         public int ProtagonistaId { get; set; }
         public string NombreProtagonista { get; set; }
