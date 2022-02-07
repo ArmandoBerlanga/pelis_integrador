@@ -33,6 +33,7 @@ export default {
         pelisFiltradas: Array
     },
     setup() {
+        document.title = 'CheckFlix';
 
         const state = reactive({
         });
