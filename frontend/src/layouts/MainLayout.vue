@@ -10,7 +10,7 @@
             </q-toolbar-title>
 
             <div class="extra-tools">
-                <q-btn round color="secondary" icon="add" />
+                <q-btn round color="secondary" icon="add" @click="this.$router.push('/add')"/>
                 <SearchBar @userTyping="filter"/>
             </div>
             
@@ -35,7 +35,7 @@ export default {
         SearchBar
     },
     setup() {
-
+      
         const state = reactive({
             listaOriginal: [],
             listaFiltrada: []

@@ -35,10 +35,8 @@ export default {
     setup() {
 
         const state = reactive({
-            peliculas: [],
         });
 
-       
         return {
             state
         }
