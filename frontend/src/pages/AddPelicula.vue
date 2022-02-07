@@ -3,13 +3,13 @@
         <h1>VOY A AÑADIR UNA PELICULA!</h1>
         <p>
             <label for="nombre">Nombre de la pelicula:</label>
-            <input type="text" id="nombre" v-model="nombrePelicula" />
+            <input type="text" id="nombre" />
         </p>
 
 
         <p>
             <label for="director">Nombre del director:</label>
-            <input type="text" id="director" v-model="nombreDirector" />
+            <input type="text" id="director" />
         </p>
 
 

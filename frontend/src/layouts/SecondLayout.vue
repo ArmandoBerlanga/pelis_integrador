@@ -4,10 +4,10 @@
     <q-header elevated class="header">
         <q-toolbar class="toolbar">
 
-            <q-toolbar-title class="tittle">
+            <div class="tittle" @click="this.$router.push('/')">
                 Check<span>Flix</span>
                 <img src="~assets/checkmark.png" alt="checkmark icon" class="img-checkmark">
-            </q-toolbar-title>
+            </div>
   
         </q-toolbar>
     </q-header>
@@ -38,12 +38,13 @@ export default {
     padding: 0 1.5%;
 
     .toolbar {
-        display: grid;
-        grid-template-columns: 1fr auto;
+        display: flex;
+        justify-content: space-between;
 
         .tittle {
             font-size: 2.2em;
             padding: 0.5rem 0;
+            cursor: pointer;
 
             span {
                 font-weight: bold;
