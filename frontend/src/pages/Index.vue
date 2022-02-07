@@ -7,8 +7,13 @@
             <p class="subtitulo">CheckFlix es una aplicación para checar películas y series</p>
         </div>
 
-        <div v-for="(peli, index) in peliculas" :key="index">
-            <Pelicula :title="peli.title" :duration="peli.duration" :categorie="peli.categorie" :director="peli.director" :poster="peli.poster" />
+        <div v-for="(peli, index) in pelisFiltradas" :key="index">
+            <Pelicula 
+                :title="peli.nombrePelicula" :duration="peli.duracion" 
+                :categorie="peli.descripcionCorta" 
+                :director="peli.nombreDirector == null ? '' : peli.nombreDirector" 
+                :poster="peli.poster == null ? '' : peli.poster" 
+            />
         </div>
     </div>
 
@@ -17,40 +22,25 @@
 
 <script>
 import Pelicula from 'components/Pelicula.vue';
-import { onMounted } from '@vue/runtime-core';
-
-const peliculas = [{
-        id: 1,
-        title: 'Shrek 2',
-        duration: 2.24,
-        categorie: 'Aventura',
-        director: '',
-        poster: ''
-    },
-    {
-        id: 2,
-        title: 'The Shawshank Redemption',
-        duration: 2.2,
-        categorie: 'Horror',
-        director: 'Fresia Perez',
-        poster: 'https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UX182_CR0,0,182,268_AL_.jpg'
-    }
-];
+import { reactive } from '@vue/runtime-core';
 
 export default {
     name: 'Catalogo',
     components: {
         Pelicula
     },
+    props:{
+        pelisFiltradas: Array
+    },
     setup() {
 
-        onMounted(async () => {
-            console.log('Catalogo mounted');
-
+        const state = reactive({
+            peliculas: [],
         });
 
+       
         return {
-            peliculas
+            state
         }
     }
 

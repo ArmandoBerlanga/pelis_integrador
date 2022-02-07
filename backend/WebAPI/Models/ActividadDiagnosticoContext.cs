@@ -75,19 +75,16 @@ namespace WebAPI.Models
                 entity.Property(e => e.Duracion).HasColumnType("decimal(5, 2)");
 
                 entity.Property(e => e.NombrePelicula)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.Property(e => e.DescripcionCorta)
-                    .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Poster).IsUnicode(false);
 
                 entity.Property(e => e.NombreDirector)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
 

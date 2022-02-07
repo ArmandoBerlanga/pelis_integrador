@@ -1,49 +1,67 @@
 <template>
 <q-layout view="lHh lpr lFf">
+    
     <q-header elevated class="header">
         <q-toolbar class="toolbar">
+
             <q-toolbar-title class="tittle">
                 Check<span>Flix</span>
                 <img src="~assets/checkmark.png" alt="checkmark icon" class="img-checkmark">
             </q-toolbar-title>
 
             <div class="extra-tools">
-
                 <q-btn round color="secondary" icon="add" />
-
-                <div class="search-bar">
-                    <q-icon name="search" class="search-icon" />
-                    <input type="text" v-model="state.search" placeholder="Busca tu peli fav ....">
-                </div>
-
+                <SearchBar @userTyping="filter"/>
             </div>
+            
         </q-toolbar>
     </q-header>
 
     <q-page-container>
-        <router-view />
+        <router-view :pelisFiltradas="state.listaFiltrada"/>
     </q-page-container>
+
 </q-layout>
 </template>
 
 <script>
-import {
-    defineComponent, reactive
-} from 'vue'
+import SearchBar from 'components/SearchBar.vue'
+import { onMounted, reactive } from '@vue/runtime-core';
+import { api } from 'boot/axios';
 
-export default defineComponent({
+export default {
     name: 'MainLayout',
+    components:{
+        SearchBar
+    },
     setup() {
 
         const state = reactive({
-            search: ''
-        })
+            listaOriginal: [],
+            listaFiltrada: []
+        });
+
+        onMounted(async () => {   
+            const response = await api.get('/Pelicula');
+            state.listaOriginal = response.data;
+            state.listaFiltrada = state.listaOriginal;
+        });
+
+        function filter(out){
+            state.listaFiltrada = state.listaOriginal;
+
+            state.listaFiltrada = state.listaFiltrada.filter(peli => 
+                peli.nombrePelicula.toLowerCase().includes(out.toLowerCase()) ||
+                peli.nombreDirector?.toLowerCase().includes(out.toLowerCase())
+            );    
+        }
 
         return {
-            state
+            state,
+            filter
         }
     }
-})
+}
 </script>
 
 <style lang="scss" scoped>
@@ -79,32 +97,6 @@ export default defineComponent({
             gap: 0.7rem;
             padding: 0.5rem 0;
             
-
-            .search-bar{
-                background-color: white;
-                border-radius: 5px;
-                color: grey;
-                display: flex;
-                align-items: center;
-
-                .search-icon{
-                    font-size: 1.5rem;
-                    padding: 0.5rem;
-                }
-
-                input{
-                    border: none;
-                    padding: 0.7rem 0;
-                    font-size: 1rem;
-                    width: 20rem;
-                    border-radius: 5px;
-
-                    &:focus{
-                        outline: none;
-                    }
-                }
-            }
-
         }
     }
 }

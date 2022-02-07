@@ -1,7 +1,7 @@
 <template>
 <div id="pelicula">
     <div class="poster">
-        <img :src="poster != '' ? poster: require('assets/nodisponible.jpg')" :alt="'poster de la pelicula ' + title">
+        <img :src="poster != '' ? poster: require('assets/nodisponible.png')" :alt="'poster de la pelicula ' + title">
 
         <p class="categoria">{{ categorie }}</p>
         <p class="director">Director@: {{ director == '' ? 'no asignado' : director }}</p>
@@ -36,7 +36,7 @@ export default {
         },
         poster: {
             type: String,
-            default: require('assets/nodisponible.jpg')
+            default: require('assets/nodisponible.png')
         }
     },
     setup() {
