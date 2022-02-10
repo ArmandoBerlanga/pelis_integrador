@@ -46,7 +46,6 @@ export default {
             state.listaOriginal = response.data.sort((a, b) => a.nombrePelicula.localeCompare(b.nombrePelicula));
        
             state.listaFiltrada = state.listaOriginal;
-            console.log(state.listaFiltrada);
         });
 
         function filter(out){
@@ -54,7 +53,8 @@ export default {
 
             state.listaFiltrada = state.listaFiltrada.filter(peli => 
                 peli.nombrePelicula.toLowerCase().includes(out.toLowerCase()) ||
-                peli.nombreDirector?.toLowerCase().includes(out.toLowerCase())
+                peli.nombreDirector?.toLowerCase().includes(out.toLowerCase()) ||
+                peli.descripcionCorta.toLowerCase().includes(out.toLowerCase())
             ).sort((a, b) => a.nombrePelicula.localeCompare(b.nombrePelicula));
         }
 

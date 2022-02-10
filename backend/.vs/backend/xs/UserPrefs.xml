@@ -2,7 +2,7 @@
   <MonoDevelop.Ide.ItemProperties.WebAPI PreferredExecutionTarget="/Applications/Safari.app" />
   <MonoDevelop.Ide.Workbench ActiveDocument="WebAPI/Controllers/PeliculaController.cs">
     <Files>
-      <File FileName="WebAPI/Controllers/PeliculaController.cs" Line="41" Column="29" />
+      <File FileName="WebAPI/Controllers/PeliculaController.cs" Line="34" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -23,9 +23,7 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/armandoberlanga/VSC-workspace/Escuela/pelis_integrador/backend/WebAPI/Controllers/PeliculaController.cs" relfile="WebAPI/Controllers/PeliculaController.cs" line="34" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>

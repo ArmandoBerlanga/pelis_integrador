@@ -27,6 +27,16 @@ namespace WebAPI.Controllers
             return await _context.ListaPelicula.FromSqlRaw("EXEC dbo.CargarListaPeliculas").ToListAsync();
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Pelicula>> GetPelicula(int id)
+        {
+            var response = await _context.ListaPelicula.FromSqlRaw("EXEC dbo.CargarListaPeliculas @PeliculaID",
+                new SqlParameter("@PeliculaID", id)
+            ).ToListAsync();
+
+            return response[0];
+        }
+
 
         [HttpPost]
         public async Task<ActionResult<Pelicula>> PostPelicula(Pelicula pelicula)
