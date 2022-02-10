@@ -11,47 +11,47 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriaController : ControllerBase
+    public class DirectorController : ControllerBase
     {
         private readonly ActividadDiagnosticoContext _context;
 
-        public CategoriaController(ActividadDiagnosticoContext context)
+        public DirectorController(ActividadDiagnosticoContext context)
         {
             _context = context;
         }
 
-        // GET: api/Categoria
+        // GET: api/Director
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Categoria>>> GetCategoria()
+        public async Task<ActionResult<IEnumerable<Director>>> GetDirector()
         {
-            return await _context.Categoria.ToListAsync();
+            return await _context.Director.ToListAsync();
         }
 
-        // GET: api/Categoria/5
+        // GET: api/Director/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Categoria>> GetCategoria(int id)
+        public async Task<ActionResult<Director>> GetDirector(int id)
         {
-            var categoria = await _context.Categoria.FindAsync(id);
+            var director = await _context.Director.FindAsync(id);
 
-            if (categoria == null)
+            if (director == null)
             {
                 return NotFound();
             }
 
-            return categoria;
+            return director;
         }
 
-        // PUT: api/Categoria/5
+        // PUT: api/Director/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategoria(int id, Categoria categoria)
+        public async Task<IActionResult> PutDirector(int id, Director director)
         {
-            if (id != categoria.CategoriaId)
+            if (id != director.DirectorId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(categoria).State = EntityState.Modified;
+            _context.Entry(director).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace WebAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoriaExists(id))
+                if (!DirectorExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace WebAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Categoria
+        // POST: api/Director
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Categoria>> PostCategoria(Categoria categoria)
+        public async Task<ActionResult<Director>> PostDirector(Director director)
         {
-            _context.Categoria.Add(categoria);
+            _context.Director.Add(director);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCategoria", new { id = categoria.CategoriaId }, categoria);
+            return CreatedAtAction("GetDirector", new { id = director.DirectorId }, director);
         }
 
-        // DELETE: api/Categoria/5
+        // DELETE: api/Director/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategoria(int id)
+        public async Task<IActionResult> DeleteDirector(int id)
         {
-            var categoria = await _context.Categoria.FindAsync(id);
-            if (categoria == null)
+            var director = await _context.Director.FindAsync(id);
+            if (director == null)
             {
                 return NotFound();
             }
 
-            _context.Categoria.Remove(categoria);
+            _context.Director.Remove(director);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CategoriaExists(int id)
+        private bool DirectorExists(int id)
         {
-            return _context.Categoria.Any(e => e.CategoriaId == id);
+            return _context.Director.Any(e => e.DirectorId == id);
         }
     }
 }

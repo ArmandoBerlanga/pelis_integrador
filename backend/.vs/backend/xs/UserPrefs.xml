@@ -1,20 +1,18 @@
 ﻿<Properties StartupConfiguration="{61E82BF4-DFDA-4C19-A346-560F31512E82}|Default">
   <MonoDevelop.Ide.ItemProperties.WebAPI PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="WebAPI/Models/ActividadDiagnosticoContext.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WebAPI/Controllers/PeliculaController.cs">
     <Files>
-      <File FileName="WebAPI/Startup.cs" Line="60" Column="48" />
-      <File FileName="WebAPI/Models/Director.cs" />
-      <File FileName="WebAPI/Models/ActividadDiagnosticoContext.cs" Line="20" Column="51" />
+      <File FileName="WebAPI/Controllers/PeliculaController.cs" Line="41" Column="29" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="backend" expanded="True">
             <Node name="WebAPI" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="ActividadDiagnosticoContext.cs" selected="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="PeliculaController.cs" selected="True" />
               </Node>
+              <Node name="Models" expanded="True" />
               <Node name="Properties" expanded="True" />
             </Node>
           </Node>
@@ -25,7 +23,9 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/armandoberlanga/VSC-workspace/Escuela/pelis_integrador/backend/WebAPI/Controllers/PeliculaController.cs" relfile="WebAPI/Controllers/PeliculaController.cs" line="34" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>

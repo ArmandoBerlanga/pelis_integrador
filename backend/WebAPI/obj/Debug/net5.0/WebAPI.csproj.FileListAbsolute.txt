@@ -139,7 +139,6 @@
 /Users/armandoberlanga/VSC-workspace/Escuela/pelis_integrador/backend/WebAPI/bin/Debug/net5.0/appsettings.Development.json
 /Users/armandoberlanga/VSC-workspace/Escuela/pelis_integrador/backend/WebAPI/bin/Debug/net5.0/appsettings.json
 /Users/armandoberlanga/VSC-workspace/Escuela/pelis_integrador/backend/WebAPI/bin/Debug/net5.0/WebAPI.StaticWebAssets.xml
-/Users/armandoberlanga/VSC-workspace/Escuela/pelis_integrador/backend/WebAPI/bin/Debug/net5.0/WebAPI
 /Users/armandoberlanga/VSC-workspace/Escuela/pelis_integrador/backend/WebAPI/bin/Debug/net5.0/WebAPI.deps.json
 /Users/armandoberlanga/VSC-workspace/Escuela/pelis_integrador/backend/WebAPI/bin/Debug/net5.0/WebAPI.runtimeconfig.json
 /Users/armandoberlanga/VSC-workspace/Escuela/pelis_integrador/backend/WebAPI/bin/Debug/net5.0/WebAPI.runtimeconfig.dev.json

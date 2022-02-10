@@ -22,6 +22,7 @@ namespace WebAPI.Models
         }
 
         public virtual DbSet<Categoria> Categoria { get; set; }
+        public virtual DbSet<Director> Director { get; set; }
         public virtual DbSet<Protagonista> Protagonista { get; set; }
         public virtual DbSet<Pelicula> ListaPelicula { get; set; }
 
@@ -46,6 +47,18 @@ namespace WebAPI.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.DescripcionLarga)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Director>(entity =>
+            {
+                entity.ToTable("Director");
+
+                entity.Property(e => e.DirectorId).HasColumnName("DirectorID");
+
+                entity.Property(e => e.NombreDirector)
+                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
             });
