@@ -9,7 +9,7 @@
         <div class="content">
 
             <div class="campo-poster">
-                <img id="poster-fijo" :src="state.pelicula.poster" alt="no disponible">
+                <img id="poster-fijo" :src="state.pelicula.poster != '' ? state.pelicula.poster : require('assets/nodisponible.png')" alt="imagen pelicula">
                 <input type="file" @change="alterPoster">
             </div>
 
@@ -40,11 +40,19 @@
                     </div>
                 </div>
 
-                <div class="campo botones">
+                  <div class="campo botones">
                     <q-btn class="btn-normal" @click="this.$router.push('/')" outline style="color: grey;" label="REGRESAR" />
                     <q-btn class="btn-normal" @click="onSubmit()" color="secondary" label="ACTUALIZAR" />
                 </div>
 
+            </div>
+
+            <div class="actores">
+                <q-table title="Lista de actores" :rows="rows" :columns="columns" row-key="id" />
+                <div class="botones">
+                    <q-btn @click="addActor()" icon="add" />
+                    <q-btn @click="deleteActor()" icon="delete" />
+                </div>
             </div>
 
         </div>
@@ -55,10 +63,21 @@
 </template>
 
 <script>
-import { onMounted, reactive, computed, onBeforeMount } from '@vue/runtime-core';
-import { useQuasar } from 'quasar';
-import { api } from 'boot/axios';
-import { useRoute } from "vue-router";
+import {
+    onMounted,
+    reactive,
+    computed,
+    onBeforeMount
+} from '@vue/runtime-core';
+import {
+    useQuasar
+} from 'quasar';
+import {
+    api
+} from 'boot/axios';
+import {
+    useRoute
+} from "vue-router";
 
 export default {
     name: 'AddPelicula',
@@ -68,6 +87,40 @@ export default {
 
         const route = useRoute();
         const id = computed(() => route.params.id).value;
+
+        const columns = [{
+                name: 'id',
+                required: true,
+                label: 'Identificador',
+                align: 'left',
+                field: row => row.id,
+                format: val => `${val}`,
+                sortable: true
+            },
+            {
+                name: 'nombre',
+                align: 'right',
+                label: 'Nombre del actor',
+                field: 'nombre',
+                sortable: true
+            }
+        ]
+
+        const rows = [{
+            id: 1,
+            nombre: 'Jose Armando Berlanga Mendoza',
+        }, {
+            id: 2,
+            nombre: 'Paulina Flores Hernandez',
+        },
+        {
+            id: 3,
+            nombre: 'Hector Galvan',
+        },
+        {
+            id: 4,
+            nombre: 'Melania Hernandez Coronado',
+        }]
 
         const state = reactive({
             pelicula: {
@@ -89,7 +142,7 @@ export default {
             copiaOptionsDirector: [],
         });
 
-        onBeforeMount(async () =>{
+        onBeforeMount(async () => {
             const response = await api.get('/Pelicula/' + id);
             state.pelicula = response.data;
         })
@@ -281,11 +334,11 @@ export default {
                 PeliculaID: id,
                 NombrePelicula: state.pelicula.nombrePelicula,
                 Duracion: state.pelicula.duracion,
-                CategoriaID:  state.responseCategorias.filter(c => c.descripcionCorta === state.pelicula.descripcionCorta)[0]?.categoriaId ?? null,
-                DirectorID: state.responseDirectores.filter(d => d.nombreDirector === state.pelicula.nombreDirector)[0]?.directorId ?? null,
+                CategoriaID:  state.responseCategorias.filter(c => c.descripcionCorta === state.pelicula.categoria)[0]?.categoriaId ?? null,
+                DirectorID: state.responseDirectores.filter(d => d.nombreDirector === state.pelicula.director)[0]?.directorId ?? null,
                 Poster: state.pelicula.poster
             }
-    
+
             api.post('/Pelicula', params).then(response => {
                 $q.notify({
                     message: 'Pelicula agregada',
@@ -295,14 +348,55 @@ export default {
 
         }
 
+        function deleteActor(){
+             $q.dialog({
+                dark: false,
+                title: 'Borrar actor por ID',
+                message: '¿Estas seguro?',
+                prompt: {
+                    model: '',
+                    type: 'number' // optional
+                },
+                cancel: true,
+                persistent: true
+            }).onOk(data => {
+
+               console.log(data);
+
+            }).onCancel(() => {}).onDismiss(() => {})
+        }
+
+        function addActor(){
+            $q.dialog({
+                dark: false,
+                title: 'Añadir actor',
+                message: 'Ingrese el nombre del actor a agregar',
+                prompt: {
+                    model: '',
+                    type: 'text' // optional
+                },
+                cancel: true,
+                persistent: true
+            }).onOk(data => {
+
+               console.log(data);
+
+            }).onCancel(() => {}).onDismiss(() => {})
+            
+        }
+
         return {
             state,
+            columns,
+            rows,
             filterFnCategoria,
             filterFnDirector,
             submitCategoria,
             submitDirector,
             alterPoster,
-            onSubmit
+            onSubmit,
+            deleteActor,
+            addActor,
         }
     }
 
@@ -377,10 +471,24 @@ export default {
         }
 
         .botones {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.35rem;
+        margin-top: 1.4rem;
+    }
+
+    }
+
+    .actores {
+        grid-column: 1/-1;
+        display: grid;
+        grid-template-columns: 1fr 0.07fr;
+        gap: 0.35rem;
+        
+        .botones{
+            display: flex;
+            flex-flow: column nowrap;
             gap: 0.35rem;
-            margin-top: 1.4rem;
         }
     }
 
