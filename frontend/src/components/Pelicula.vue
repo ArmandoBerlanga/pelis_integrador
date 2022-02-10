@@ -1,5 +1,5 @@
 <template>
-<div id="pelicula">
+<div id="pelicula" @click="this.$router.push(`/pelicula/${id}`)">
     <div class="poster">
         <img :src="poster != '' ? poster: require('assets/nodisponible.png')" :alt="'poster de la pelicula ' + title">
 
@@ -18,6 +18,10 @@
 export default {
     name: 'Pelicula',
     props: {
+        id: {
+            type: Number,
+            default: 0
+        },
         title: {
             type: String,
             default: ''

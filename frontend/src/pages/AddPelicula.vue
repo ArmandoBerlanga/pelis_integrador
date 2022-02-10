@@ -96,13 +96,11 @@ export default {
             // categorias
             const responseCategorias = await api.get('/Categoria');
             state.responseCategorias = responseCategorias.data;
-            console.log(state.responseCategorias);
             responseCategorias.data.forEach(categoria => state.optionsCategoria.push(categoria.descripcionCorta));
 
             // directores
             const responseDirectores = await api.get('/Director');
             state.responseDirectores = responseDirectores.data;
-            console.log(state.responseDirectores);
             responseDirectores.data.forEach(director => state.optionsDirector.push(director.nombreDirector));
 
             // copias

@@ -9,6 +9,7 @@
 
         <div v-for="(peli, index) in pelisFiltradas" :key="index">
             <Pelicula 
+                :id="peli.peliculaId"
                 :title="peli.nombrePelicula" :duration="peli.duracion" 
                 :categorie="peli.descripcionCorta" 
                 :director="peli.nombreDirector == null ? '' : peli.nombreDirector" 

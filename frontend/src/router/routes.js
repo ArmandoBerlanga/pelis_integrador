@@ -9,13 +9,17 @@ const routes = [{
         }, ]
     },
     {
-        path: '/add',
+        path: '/',
         component: () =>
             import ('layouts/SecondLayout.vue'),
         children: [{
-                path: '',
+                path: '/add',
                 component: () =>
                     import ('pages/AddPelicula.vue')
+            }, {
+                path: '/pelicula/:id',
+                component: () =>
+                    import ('pages/InfoPelicula.vue')
             },
 
         ]
