@@ -53,5 +53,21 @@ namespace WebAPI.Controllers
             return CreatedAtAction("GetPelicula", new { id = pelicula.PeliculaId }, pelicula);
         }
 
+
+        // DELETE: api/Protagonista/5
+        [HttpDelete("{peliculaID}")]
+        public async Task<ActionResult<Pelicula>> DeletePelicula(int peliculaID)
+        {
+            var response = await _context.ListaPelicula.FromSqlRaw("EXEC dbo.BorrarPelicula @PeliculaID",
+                new SqlParameter("@PeliculaID", peliculaID)
+            ).ToListAsync();
+
+          
+            return response.FirstOrDefault();
+        }
+
+
+
+
     }
 }

@@ -27,51 +27,6 @@ namespace WebAPI.Controllers
             return await _context.Director.ToListAsync();
         }
 
-        // GET: api/Director/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Director>> GetDirector(int id)
-        {
-            var director = await _context.Director.FindAsync(id);
-
-            if (director == null)
-            {
-                return NotFound();
-            }
-
-            return director;
-        }
-
-        // PUT: api/Director/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDirector(int id, Director director)
-        {
-            if (id != director.DirectorId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(director).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DirectorExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/Director
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -83,25 +38,5 @@ namespace WebAPI.Controllers
             return CreatedAtAction("GetDirector", new { id = director.DirectorId }, director);
         }
 
-        // DELETE: api/Director/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDirector(int id)
-        {
-            var director = await _context.Director.FindAsync(id);
-            if (director == null)
-            {
-                return NotFound();
-            }
-
-            _context.Director.Remove(director);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool DirectorExists(int id)
-        {
-            return _context.Director.Any(e => e.DirectorId == id);
-        }
     }
 }

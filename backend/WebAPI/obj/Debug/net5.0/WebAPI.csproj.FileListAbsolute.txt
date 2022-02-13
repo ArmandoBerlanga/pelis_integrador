@@ -273,4 +273,3 @@
 /Users/armandoberlanga/VSC-workspace/Escuela/pelis_integrador/backend/WebAPI/obj/Debug/net5.0/ref/WebAPI.dll
 /Users/armandoberlanga/VSC-workspace/Escuela/pelis_integrador/backend/WebAPI/obj/Debug/net5.0/WebAPI.pdb
 /Users/armandoberlanga/VSC-workspace/Escuela/pelis_integrador/backend/WebAPI/obj/Debug/net5.0/WebAPI.genruntimeconfig.cache
-/Users/armandoberlanga/VSC-workspace/Escuela/pelis_integrador/backend/WebAPI/bin/Debug/net5.0/WebAPI

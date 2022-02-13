@@ -2,7 +2,8 @@
   <MonoDevelop.Ide.ItemProperties.WebAPI PreferredExecutionTarget="/Applications/Safari.app" />
   <MonoDevelop.Ide.Workbench ActiveDocument="WebAPI/Controllers/PeliculaController.cs">
     <Files>
-      <File FileName="WebAPI/Controllers/PeliculaController.cs" Line="34" Column="1" />
+      <File FileName="WebAPI/Controllers/PeliculaController.cs" Line="66" Column="45" />
+      <File FileName="WebAPI/Controllers/ProtagonistaController.cs" Line="49" Column="9" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

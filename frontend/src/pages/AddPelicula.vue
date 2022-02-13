@@ -59,18 +59,16 @@ import {
     onMounted,
     reactive
 } from '@vue/runtime-core';
-import {
-    useQuasar
-} from 'quasar';
-import {
-    api
-} from 'boot/axios';
+import { useQuasar } from 'quasar';
+import { api } from 'boot/axios';
+import { useRouter } from "vue-router"; 
 
 export default {
     name: 'AddPelicula',
     setup() {
         document.title = 'Añadir Pelicula';
         const $q = useQuasar()
+        const router = useRouter();
 
         const state = reactive({
             pelicula: {
@@ -149,10 +147,10 @@ export default {
                 persistent: true
             }).onOk(data => {
 
-                let bool = state.responseCategorias.filter(
+                let existe = state.responseCategorias.filter(
                     d => d.descripcionCorta.toLowerCase() === data.toLowerCase()).length === 0;
 
-                if (bool) {
+                if (existe) {
 
                     api.post('/Categoria', {
                         descripcionCorta: data,
@@ -190,10 +188,10 @@ export default {
                 persistent: true
             }).onOk(data => {
 
-                let bool = state.responseDirectores.filter(
+                let existe = state.responseDirectores.filter(
                     d => d.nombreDirector.toLowerCase() === data.toLowerCase()).length === 0;
 
-                if (bool) {
+                if (existe) {
 
                     api.post('/Director', {
                         nombreDirector: data
@@ -288,6 +286,8 @@ export default {
                     message: 'Pelicula agregada',
                     color: 'primary'
                 })
+
+                router.push('/');
             })
 
         }

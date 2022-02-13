@@ -79,7 +79,7 @@ namespace WebAPI.Models
             modelBuilder.Entity<Pelicula>(entity =>
             {
                 entity.HasNoKey();
-                entity.ToTable("PeliculaCompleta");
+                entity.ToTable("Pelicula");
 
                 entity.Property(e => e.PeliculaId).HasColumnName("PeliculaID");
 
