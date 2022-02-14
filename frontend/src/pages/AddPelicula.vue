@@ -71,6 +71,7 @@ export default {
         const router = useRouter();
 
         const state = reactive({
+            listaPeliculas: [],
             pelicula: {
                 nombrePelicula: '',
                 duracion: 0,
@@ -90,6 +91,8 @@ export default {
         });
 
         onMounted(async () => {
+            const response = await api.get('/Pelicula');
+            state.listaPeliculas = response.data;
 
             // categorias
             const responseCategorias = await api.get('/Categoria');
@@ -243,6 +246,16 @@ export default {
             if (state.pelicula.nombrePelicula === '') {
                 $q.notify({
                     message: 'Ingrese el nombre de la pelicula',
+                    color: 'primary'
+                })
+                return
+            }
+
+            let salida = state.listaPeliculas.filter(p => p.nombrePelicula.toLowerCase() === state.pelicula.nombrePelicula.toLowerCase()).length !== 0;
+      
+            if (salida) {
+                $q.notify({
+                    message: 'Esta pelicula ya existe',
                     color: 'primary'
                 })
                 return
