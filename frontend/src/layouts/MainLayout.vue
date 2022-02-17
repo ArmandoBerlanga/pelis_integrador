@@ -77,6 +77,7 @@ export default {
         .tittle {
             font-size: 2.2em;
             cursor: pointer;
+            margin-right: 1rem;
 
             span {
                 font-weight: bold;
@@ -99,7 +100,6 @@ export default {
             align-items: center;
             gap: 0.7rem;
             padding: 0.5rem 0;
-            
         }
     }
 }

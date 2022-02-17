@@ -55,7 +55,7 @@ export default {
         border: none;
         padding: 0.7rem 0;
         font-size: 1rem;
-        width: 20rem;
+        width: 25vw;
         border-radius: 5px;
 
         &:focus {

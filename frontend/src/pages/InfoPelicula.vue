@@ -12,7 +12,7 @@
 
                 <div class="campo-poster">
                     <img id="poster-fijo" :src="state.pelicula.poster != '' ? state.pelicula.poster : require('assets/nodisponible.png')" alt="imagen pelicula">
-                    <input type="file" @change="alterPoster">
+                    <input type="file" accept="image/*" @change="alterPoster">
                 </div>
 
                 <div class="datos">

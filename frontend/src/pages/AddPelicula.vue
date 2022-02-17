@@ -10,7 +10,7 @@
 
             <div class="campo-poster">
                 <img id="poster-fijo" src="~assets/nodisponible.png" alt="no disponible">
-                <input type="file" @change="alterPoster">
+                <input type="file" accept="image/*" @change="alterPoster">
             </div>
 
             <div class="datos">
