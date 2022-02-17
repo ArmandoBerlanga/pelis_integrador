@@ -109,6 +109,13 @@ export default {
                     d => d.nombreProtagonista.toLowerCase() === data.toLowerCase()).length === 0;
 
                 if (existe) {
+                    if(data.length > 30){
+                        $q.notify({
+                            message: 'El nombre del actor no puede superar los 30 caracteres',
+                            color: 'primary'
+                        })
+                        return;
+                    }
 
                     api.post(`/Protagonista?peliculaID=${id}&nombreProtagonista=${data}`)
                         .then(async () => {

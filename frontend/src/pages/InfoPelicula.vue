@@ -68,9 +68,16 @@ import {
     computed,
     onBeforeMount
 } from '@vue/runtime-core';
-import { useQuasar } from 'quasar';
-import { api } from 'boot/axios';
-import { useRoute, useRouter } from "vue-router";
+import {
+    useQuasar
+} from 'quasar';
+import {
+    api
+} from 'boot/axios';
+import {
+    useRoute,
+    useRouter
+} from "vue-router";
 import TablaProtagonistas from 'components/TablaProtagonistas.vue';
 
 export default {
@@ -172,6 +179,17 @@ export default {
                 persistent: true
             }).onOk(data => {
 
+                if (data.length > 12) {
+                    $q.dialog({
+                        dark: false,
+                        title: 'Error',
+                        message: 'La categoria debe tener menos de 12 caracteres',
+                        cancel: true,
+                        persistent: true
+                    })
+                    return;
+                }
+
                 let existe = state.responseCategorias.filter(
                     d => d.descripcionCorta.toLowerCase() === data.toLowerCase()).length === 0;
 
@@ -218,6 +236,17 @@ export default {
 
                 if (existe) {
 
+                    if (data.length > 40) {
+                        $q.dialog({
+                            dark: false,
+                            title: 'Error',
+                            message: 'El nombre del director debe tener menos de 40 caracteres',
+                            cancel: true,
+                            persistent: true
+                        })
+                        return;
+                    }
+
                     api.post('/Director', {
                         nombreDirector: data
 
@@ -263,7 +292,7 @@ export default {
             foto.style.objectFit = 'cover';
         }
 
-        function deletePelicula(){
+        function deletePelicula() {
             $q.dialog({
                 dark: false,
                 title: 'Eliminar Pelicula',
@@ -271,7 +300,7 @@ export default {
                 cancel: true,
                 persistent: true
             }).onOk(() => {
-            
+
                 api.delete('/Pelicula/' + id).then(response => {
                     $q.notify({
                         message: 'Pelicula eliminada',
@@ -293,11 +322,18 @@ export default {
                 return
             }
 
-            let salida = state.listaPeliculas.filter(p => p.nombrePelicula.toLowerCase() === state.pelicula.nombrePelicula.toLowerCase()).length !== 0;
-      
+            let salida = state.listaPeliculas
+                .filter(p => (p.nombrePelicula.toLowerCase() === state.pelicula.nombrePelicula.toLowerCase() && p.peliculaId != id)).length !== 0;
+
             if (salida) {
                 $q.notify({
                     message: 'Esta pelicula ya existe',
+                    color: 'primary'
+                })
+                return
+            } else if (state.pelicula.nombrePelicula.length > 50) {
+                $q.notify({
+                    message: 'El nombre de la pelicula no puede superar los 50 caracteres',
                     color: 'primary'
                 })
                 return
@@ -306,6 +342,12 @@ export default {
             if (state.pelicula.duracion === 0) {
                 $q.notify({
                     message: 'Ingrese la duracion de la pelicula',
+                    color: 'primary'
+                })
+                return
+            } else if (state.pelicula.duracion < 0) {
+                $q.notify({
+                    message: 'La duracion de la pelicula no puede ser negativa',
                     color: 'primary'
                 })
                 return
@@ -391,7 +433,7 @@ export default {
 
 .form-holder {
 
-    .display{
+    .display {
         display: flex;
         justify-content: space-between;
         gap: 2rem;
@@ -451,5 +493,4 @@ export default {
 
     }
 }
-
 </style>

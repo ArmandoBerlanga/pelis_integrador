@@ -59,9 +59,15 @@ import {
     onMounted,
     reactive
 } from '@vue/runtime-core';
-import { useQuasar } from 'quasar';
-import { api } from 'boot/axios';
-import { useRouter } from "vue-router"; 
+import {
+    useQuasar
+} from 'quasar';
+import {
+    api
+} from 'boot/axios';
+import {
+    useRouter
+} from "vue-router";
 
 export default {
     name: 'AddPelicula',
@@ -155,6 +161,17 @@ export default {
 
                 if (existe) {
 
+                    if (data.length > 12) {
+                        $q.dialog({
+                            dark: false,
+                            title: 'Error',
+                            message: 'La categoria debe tener menos de 12 caracteres',
+                            cancel: true,
+                            persistent: true
+                        })
+                        return;
+                    }
+
                     api.post('/Categoria', {
                         descripcionCorta: data,
                         descripcionLarga: "no por el momento"
@@ -195,6 +212,17 @@ export default {
                     d => d.nombreDirector.toLowerCase() === data.toLowerCase()).length === 0;
 
                 if (existe) {
+
+                    if (data.length > 40) {
+                        $q.dialog({
+                            dark: false,
+                            title: 'Error',
+                            message: 'El nombre del director debe tener menos de 40 caracteres',
+                            cancel: true,
+                            persistent: true
+                        })
+                        return;
+                    }
 
                     api.post('/Director', {
                         nombreDirector: data
@@ -252,10 +280,16 @@ export default {
             }
 
             let salida = state.listaPeliculas.filter(p => p.nombrePelicula.toLowerCase() === state.pelicula.nombrePelicula.toLowerCase()).length !== 0;
-      
+
             if (salida) {
                 $q.notify({
                     message: 'Esta pelicula ya existe',
+                    color: 'primary'
+                })
+                return
+            } else if (state.pelicula.nombrePelicula.length > 50) {
+                $q.notify({
+                    message: 'El nombre de la pelicula no puede superar los 50 caracteres',
                     color: 'primary'
                 })
                 return
@@ -264,6 +298,12 @@ export default {
             if (state.pelicula.duracion === 0) {
                 $q.notify({
                     message: 'Ingrese la duracion de la pelicula',
+                    color: 'primary'
+                })
+                return
+            } else if (state.pelicula.duracion < 0) {
+                $q.notify({
+                    message: 'La duracion de la pelicula no puede ser negativa',
                     color: 'primary'
                 })
                 return
@@ -289,11 +329,11 @@ export default {
                 PeliculaID: 0,
                 NombrePelicula: state.pelicula.nombrePelicula,
                 Duracion: state.pelicula.duracion,
-                CategoriaID:  state.responseCategorias.filter(c => c.descripcionCorta === state.pelicula.categoria)[0]?.categoriaId ?? null,
+                CategoriaID: state.responseCategorias.filter(c => c.descripcionCorta === state.pelicula.categoria)[0]?.categoriaId ?? null,
                 DirectorID: state.responseDirectores.filter(d => d.nombreDirector === state.pelicula.director)[0]?.directorId ?? null,
                 Poster: state.pelicula.poster
             }
-    
+
             api.post('/Pelicula', params).then(response => {
                 $q.notify({
                     message: 'Pelicula agregada',

@@ -1,20 +1,19 @@
 ﻿<Properties StartupConfiguration="{61E82BF4-DFDA-4C19-A346-560F31512E82}|Default">
   <MonoDevelop.Ide.ItemProperties.WebAPI PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="WebAPI/Controllers/PeliculaController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WebAPI/Startup.cs">
     <Files>
-      <File FileName="WebAPI/Controllers/PeliculaController.cs" Line="66" Column="45" />
-      <File FileName="WebAPI/Controllers/ProtagonistaController.cs" Line="49" Column="9" />
+      <File FileName="WebAPI/Properties/launchSettings.json" Line="1" Column="1" />
+      <File FileName="WebAPI/Startup.cs" Line="99" Column="13" />
+      <File FileName="WebAPI/appsettings.json" Line="10" Column="5" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="backend" expanded="True">
             <Node name="WebAPI" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="PeliculaController.cs" selected="True" />
-              </Node>
-              <Node name="Models" expanded="True" />
+              <Node name="Controllers" expanded="True" />
               <Node name="Properties" expanded="True" />
+              <Node name="Startup.cs" selected="True" />
             </Node>
           </Node>
         </State>
