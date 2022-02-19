@@ -13,7 +13,9 @@ const routes = [{
         component: () =>
             import ('layouts/SecondLayout.vue'),
         children: [{
+
                 path: '/add',
+                name: 'add',
                 component: () =>
                     import ('pages/AddPelicula.vue')
             }, {

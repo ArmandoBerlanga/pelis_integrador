@@ -6,47 +6,52 @@
     <form class="form-holder" @submit.prevent="onSubmit()">
         <p class="subtitulo">Añade tu peli fav agregando toda su info!!</p>
 
-        <div class="content">
+        <div class="display">
+            <div class="content">
 
-            <div class="campo-poster">
-                <img id="poster-fijo" src="~assets/nodisponible.png" alt="no disponible">
-                <input type="file" accept="image/*" @change="alterPoster">
+                <div class="campo-poster">
+                    <img id="poster-fijo" src="~assets/nodisponible.png" alt="no disponible">
+                    <input id="poster-input" type="file" accept="image/*" @change="alterPoster" style="display: none;">
+                    <q-btn id="foto-btn" @click="uploadFoto" class="add" flat icon="add" style="width: 100%;" />
+                </div>
+
+                <div class="datos">
+                    <div class="campo">
+                        <label for="nombre">Nombre de la pelicula</label>
+                        <q-input filled v-model="state.pelicula.nombrePelicula" label="Nombre" />
+                    </div>
+
+                    <div class="campo">
+                        <label for="duracion">Duración</label>
+                        <q-input filled v-model.number="state.pelicula.duracion" type="number" />
+                    </div>
+
+                    <div class="campo select categoria">
+                        <label for="categoria">Categoría</label>
+                        <div class="content">
+                            <q-select filled v-model="state.pelicula.categoria" use-input input-debounce="0" label="Categoría" :options="state.optionsCategoria" @filter="filterFnCategoria" behavior="menu" />
+                            <q-btn @click="submitCategoria()" class="add" icon="add" />
+                        </div>
+                    </div>
+
+                    <div class="campo select director">
+                        <label for="director">Director</label>
+                        <div class="content">
+                            <q-select filled v-model="state.pelicula.director" use-input input-debounce="0" label="Director" :options="state.optionsDirector" @filter="filterFnDirector" behavior="menu" />
+                            <q-btn @click="submitDirector()" class="add" icon="add" />
+                        </div>
+                    </div>
+
+                    <div class="campo botones">
+                        <q-btn class="btn-normal" @click="this.$router.push('/')" outline style="color: grey;" label="REGRESAR" />
+                        <q-btn class="btn-normal" @click="onSubmit()" color="secondary" label="GUARDAR" />
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="datos">
-                <div class="campo">
-                    <label for="nombre">Nombre de la pelicula</label>
-                    <q-input filled v-model="state.pelicula.nombrePelicula" label="Nombre" />
-                </div>
-
-                <div class="campo">
-                    <label for="duracion">Duración</label>
-                    <q-input filled v-model.number="state.pelicula.duracion" type="number" />
-                </div>
-
-                <div class="campo select categoria">
-                    <label for="categoria">Categoría</label>
-                    <div class="content">
-                        <q-select filled v-model="state.pelicula.categoria" use-input input-debounce="0" label="Categoría" :options="state.optionsCategoria" @filter="filterFnCategoria" behavior="menu" />
-                        <q-btn @click="submitCategoria()" class="add" icon="add" />
-                    </div>
-                </div>
-
-                <div class="campo select director">
-                    <label for="director">Director</label>
-                    <div class="content">
-                        <q-select filled v-model="state.pelicula.director" use-input input-debounce="0" label="Director" :options="state.optionsDirector" @filter="filterFnDirector" behavior="menu" />
-                        <q-btn @click="submitDirector()" class="add" icon="add" />
-                    </div>
-                </div>
-
-                <div class="campo botones">
-                    <q-btn class="btn-normal" @click="this.$router.push('/')" outline style="color: grey;" label="REGRESAR" />
-                    <q-btn class="btn-normal" @click="onSubmit()" color="secondary" label="GUARDAR" />
-                </div>
-
-            </div>
-
+            <TablaProtagonistas />
         </div>
 
     </form>
@@ -68,9 +73,13 @@ import {
 import {
     useRouter
 } from "vue-router";
+import TablaProtagonistas from 'components/TablaProtagonistas.vue';
 
 export default {
     name: 'AddPelicula',
+    components: {
+        TablaProtagonistas
+    },
     setup() {
         document.title = 'Añadir Pelicula';
         const $q = useQuasar()
@@ -269,6 +278,15 @@ export default {
             foto.style.objectFit = 'cover';
         }
 
+        function uploadFoto() {
+            let fileupload = document.getElementById("poster-input");
+            let btn = document.getElementById("foto-btn");
+            let img = document.getElementById("poster-fijo");
+
+            btn.onclick = () => fileupload.click();
+            fileupload.onchange = () => img.src = URL.createObjectURL(fileupload.files[0]);
+        }
+
         function onSubmit() {
 
             if (state.pelicula.nombrePelicula === '') {
@@ -352,7 +370,8 @@ export default {
             submitCategoria,
             submitDirector,
             alterPoster,
-            onSubmit
+            onSubmit,
+            uploadFoto
         }
     }
 
@@ -368,7 +387,7 @@ export default {
 #add_pelicula {
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 90%;
     background-color: white;
     border: 2px solid rgba(204, 204, 204, 0.192);
     border-radius: 5px;
@@ -388,55 +407,64 @@ export default {
     margin-bottom: 0.7rem;
 }
 
-.form-holder .content {
-    display: grid;
-    grid-template-columns: 0.6fr 1fr;
-    gap: 1rem;
-
-    .campo-poster {
-        img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
+.form-holder {
+    .display {
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem;
     }
 
-    .datos {
+    .content {
+        display: grid;
+        grid-template-columns: 0.6fr 1fr;
+        gap: 1rem;
 
-        .campo {
-            margin-bottom: 0.35rem;
+        .add {
+            background-color: #220753;
+            color: white;
+        }
 
-            label {
-                color: #0F0326;
-                font-size: 0.9rem;
-                font-weight: bold;
+        .campo-poster {
+            img {
+                width: 100%;
+                height: auto;
+                border-radius: 5px;
             }
         }
 
-        .select {
-            .add {
-                background-color: #220753;
-                color: white;
+        .datos {
+
+            .campo {
+                margin-bottom: 0.35rem;
+
+                label {
+                    color: #0F0326;
+                    font-size: 0.9rem;
+                    font-weight: bold;
+                }
             }
 
-            .content {
+            .select {
+
+                .content {
+                    display: grid;
+                    grid-template-columns: 8fr 1fr;
+                    gap: 0.35rem;
+                }
+            }
+
+            .botones {
                 display: grid;
-                grid-template-columns: 8fr 1fr;
+                grid-template-columns: 1fr 1fr;
                 gap: 0.35rem;
+                margin-top: 1.4rem;
             }
         }
 
-        .botones {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.35rem;
-            margin-top: 1.4rem;
+        .btn-normal {
+            padding: 0.5rem;
         }
-    }
 
-    .btn-normal {
-        padding: 0.5rem;
     }
-
 }
 </style>

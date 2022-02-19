@@ -12,7 +12,8 @@
 
                 <div class="campo-poster">
                     <img id="poster-fijo" :src="state.pelicula.poster != '' ? state.pelicula.poster : require('assets/nodisponible.png')" alt="imagen pelicula">
-                    <input type="file" accept="image/*" @change="alterPoster">
+                    <input id="poster-input" type="file" accept="image/*" @change="alterPoster" style="display: none;">
+                    <q-btn id="foto-btn" @click="uploadFoto" class="add" flat icon="add" style="width: 100%;" />
                 </div>
 
                 <div class="datos">
@@ -403,6 +404,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.add {
+    background-color: #220753;
+    color: white;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -466,10 +472,6 @@ export default {
             }
 
             .select {
-                .add {
-                    background-color: #220753;
-                    color: white;
-                }
 
                 .content {
                     display: grid;

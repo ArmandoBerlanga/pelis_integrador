@@ -1,6 +1,10 @@
 <template>
 <div class="protagonistas">
-    <q-table title="Lista de protagonistas" :rows="state.rows" :columns="state.columns" row-key="protagonistaId" />
+    <q-table title="Lista de protagonistas"
+      :rows="state.rows" :columns="state.columns"
+      row-key="protagonistaId"
+      no-data-label="Sin datos"
+      />
     <div class="botones">
         <q-btn @click="addActor()" icon="add" />
         <q-btn @click="deleteActor()" icon="delete" />

@@ -1,6 +1,6 @@
 <template>
 <q-layout view="hHh Lpr fFf">
-    
+
     <q-header elevated class="header">
         <q-toolbar class="toolbar">
 
@@ -10,10 +10,10 @@
             </div>
 
             <div class="extra-tools">
-                <q-btn round color="secondary" icon="add" @click="this.$router.push('/add')"/>
+                <q-btn round color="secondary" icon="add" @click="this.$router.push({ name: 'add', params: { id: state.ultimoID } })"/>
                 <SearchBar @userTyping="filter"/>
             </div>
-            
+
         </q-toolbar>
     </q-header>
 
@@ -35,23 +35,27 @@ export default {
         SearchBar
     },
     setup() {
-      
+
         const state = reactive({
+          ultimoID: 0,
             listaOriginal: [],
             listaFiltrada: []
         });
 
-        onMounted(async () => {   
+        onMounted(async () => {
             const response = await api.get('/Pelicula');
+            state.listaOriginal = response.data;
+
+            state.ultimoID = state.listaOriginal.sort((a, b) => a.peliculaId - b.peliculaId)[state.listaOriginal.length - 1].peliculaId + 1;
+
             state.listaOriginal = response.data.sort((a, b) => a.nombrePelicula.localeCompare(b.nombrePelicula));
-       
             state.listaFiltrada = state.listaOriginal;
         });
 
         function filter(out){
             state.listaFiltrada = state.listaOriginal;
 
-            state.listaFiltrada = state.listaFiltrada.filter(peli => 
+            state.listaFiltrada = state.listaFiltrada.filter(peli =>
                 peli.nombrePelicula.toLowerCase().includes(out.toLowerCase()) ||
                 peli.nombreDirector?.toLowerCase().includes(out.toLowerCase()) ||
                 peli.descripcionCorta.toLowerCase().includes(out.toLowerCase())
