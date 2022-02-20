@@ -12,7 +12,7 @@
                 <div class="campo-poster">
                     <img id="poster-fijo" src="~assets/nodisponible.png" alt="no disponible">
                     <input id="poster-input" type="file" accept="image/*" @change="alterPoster" style="display: none;">
-                    <q-btn id="foto-btn" @click="uploadFoto" class="add" flat icon="add" style="width: 100%;" />
+                    <q-btn id="foto-btn" class="add" flat icon="upload" style="width: 100%;" />
                 </div>
 
                 <div class="datos">
@@ -51,7 +51,7 @@
 
             </div>
 
-            <TablaProtagonistas />
+            <TablaProtagonistas @listaActores="updListaActores" />
         </div>
 
     </form>
@@ -73,7 +73,7 @@ import {
 import {
     useRouter
 } from "vue-router";
-import TablaProtagonistas from 'components/TablaProtagonistas.vue';
+import TablaProtagonistas from 'components/TablaProtagonistas2.vue';
 
 export default {
     name: 'AddPelicula',
@@ -86,6 +86,7 @@ export default {
         const router = useRouter();
 
         const state = reactive({
+            listaActores: [],
             listaPeliculas: [],
             pelicula: {
                 nombrePelicula: '',
@@ -122,7 +123,23 @@ export default {
             // copias
             state.copiaOptionsCategoria = state.optionsCategoria;
             state.copiaOptionsDirector = state.optionsDirector;
+
+            let fileupload = document.getElementById("poster-input");
+            let btn = document.getElementById("foto-btn");
+            let img = document.getElementById("poster-fijo");
+
+            btn.onclick = () => fileupload.click();
+            fileupload.onchange = () => img.src = URL.createObjectURL(fileupload.files[0]);
+
+            img.style.width = '100%';
+            img.style.height = 'auto';
+            img.style.borderRadius = '5px';
+            img.style.objectFit = 'cover';
         });
+
+        function updListaActores(listaActores) {
+            state.listaActores = listaActores;
+        }
 
         function filterFnCategoria(val, update) {
             if (val === '') {
@@ -278,17 +295,7 @@ export default {
             foto.style.objectFit = 'cover';
         }
 
-        function uploadFoto() {
-            let fileupload = document.getElementById("poster-input");
-            let btn = document.getElementById("foto-btn");
-            let img = document.getElementById("poster-fijo");
-
-            btn.onclick = () => fileupload.click();
-            fileupload.onchange = () => img.src = URL.createObjectURL(fileupload.files[0]);
-        }
-
-        function onSubmit() {
-
+        async function onSubmit() {
             if (state.pelicula.nombrePelicula === '') {
                 $q.notify({
                     message: 'Ingrese el nombre de la pelicula',
@@ -352,13 +359,19 @@ export default {
                 Poster: state.pelicula.poster
             }
 
-            api.post('/Pelicula', params).then(response => {
-                $q.notify({
-                    message: 'Pelicula agregada',
-                    color: 'primary'
+            let id = 0;
+            await api.post('/Pelicula', params)
+                .then(response => {
+                    id = response.data.peliculaId;
+                    $q.notify({
+                        message: 'Pelicula agregada',
+                        color: 'primary'
+                    })
+
                 })
 
-                router.push('/');
+            state.listaActores.forEach(actor => {
+                api.post(`/Protagonista?peliculaID=${id}&nombreProtagonista=${actor.nombreProtagonista}`)
             })
 
         }
@@ -371,7 +384,7 @@ export default {
             submitDirector,
             alterPoster,
             onSubmit,
-            uploadFoto
+            updListaActores
         }
     }
 

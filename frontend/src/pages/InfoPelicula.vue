@@ -13,7 +13,7 @@
                 <div class="campo-poster">
                     <img id="poster-fijo" :src="state.pelicula.poster != '' ? state.pelicula.poster : require('assets/nodisponible.png')" alt="imagen pelicula">
                     <input id="poster-input" type="file" accept="image/*" @change="alterPoster" style="display: none;">
-                    <q-btn id="foto-btn" @click="uploadFoto" class="add" flat icon="add" style="width: 100%;" />
+                    <q-btn id="foto-btn" class="add" flat icon="upload" style="width: 100%;" />
                 </div>
 
                 <div class="datos">
@@ -137,6 +137,18 @@ export default {
             // copias
             state.copiaOptionsCategoria = state.optionsCategoria;
             state.copiaOptionsDirector = state.optionsDirector;
+
+            let fileupload = document.getElementById("poster-input");
+            let btn = document.getElementById("foto-btn");
+            let img = document.getElementById("poster-fijo");
+
+            btn.onclick = () => fileupload.click();
+            fileupload.onchange = () => img.src = URL.createObjectURL(fileupload.files[0]);
+
+            img.style.width = '100%';
+            img.style.height = 'auto';
+            img.style.borderRadius = '5px';
+            img.style.objectFit = 'cover';
         });
 
         function filterFnCategoria(val, update) {

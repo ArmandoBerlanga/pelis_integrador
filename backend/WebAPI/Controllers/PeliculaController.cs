@@ -41,7 +41,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Pelicula>> PostPelicula(Pelicula pelicula)
         {
-            await _context.ListaPelicula.FromSqlRaw("EXEC dbo.GuardarPelicula @PeliculaID, @NombrePelicula, @Duracion, @CategoriaID, @DirectorID, @Poster",
+            var response = await _context.ListaPelicula.FromSqlRaw("EXEC dbo.GuardarPelicula @PeliculaID, @NombrePelicula, @Duracion, @CategoriaID, @DirectorID, @Poster",
                 new SqlParameter("@PeliculaID", pelicula.PeliculaId),
                 new SqlParameter("@NombrePelicula", pelicula.NombrePelicula),
                 new SqlParameter("@Duracion", pelicula.Duracion),
@@ -50,7 +50,7 @@ namespace WebAPI.Controllers
                 new SqlParameter("@Poster", pelicula.Poster)
             ).ToListAsync();
 
-            return CreatedAtAction("GetPelicula", new { id = pelicula.PeliculaId }, pelicula);
+            return response[0];
         }
 
 
